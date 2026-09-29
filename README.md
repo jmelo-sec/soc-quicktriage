@@ -1,5 +1,7 @@
 # SOC QuickTriage
 
+*[Leer esto en español](README.es.md)*
+
 Designed to simulate real-world SOC Tier 1/2 triage workflows by consolidating multi-source threat intelligence and producing explainable risk scoring.
 
 ## Overview
