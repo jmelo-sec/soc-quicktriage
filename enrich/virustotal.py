@@ -32,7 +32,7 @@ def check_virustotal(ioc: str, ioc_type: str) -> dict:
                 status = 200
                 err = None
             else:
-                status, data, err = status2, data2, err2
+                status, data, err = 404, None, "Hash not found via VT search"
         else:
             status, data, err = status2, data2, err2
 
