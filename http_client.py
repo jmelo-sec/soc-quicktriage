@@ -1,37 +1,38 @@
+# http_client.py
+# Cliente HTTP común para las tres fuentes (VT, AbuseIPDB, OTX).
+# Añade reintentos con backoff para no romper cuando la API da 429 o 5xx.
+
 import time
 import random
 import requests
 
 def get_json(url: str, headers: dict | None = None, params: dict | None = None, timeout: int = 15, max_retries: int = 3) -> tuple[int, dict | None, str | None]:
-    """
-    Returns: (status_code, json_dict_or_none, error_text_or_none)
-    Retries on 429/5xx with backoff.
-    """
+    # Devuelve status_code, json y error (si hay alguno). Si la API está saturada o falla, reintenta
+    # varias veces esperando cada vez un poco más, hasta max_retries intentos.
     headers = headers or {}
     params = params or {}
 
     for attempt in range(1, max_retries + 1):
         try:
-            r = requests.get(url, headers=headers, params=params, timeout=timeout)
+            response = requests.get(url, headers=headers, params=params, timeout=timeout)
 
-            # Rate limit / transient failures
-            if r.status_code in (429, 500, 502, 503, 504):
+            if response.status_code in (429, 500, 502, 503, 504):
                 wait = min(2 ** attempt, 10) + random.random()
-                # Respect Retry-After if present
-                ra = r.headers.get("Retry-After")
-                if ra and ra.isdigit():
-                    wait = max(wait, int(ra))
+                # Si la API nos dice cuánto esperar antes de reintentar, le hacemos caso.
+                retry_after = response.headers.get("Retry-After")
+                if retry_after and retry_after.isdigit():
+                    wait = max(wait, int(retry_after))
                 time.sleep(wait)
                 continue
 
-            if r.status_code == 200:
-                return r.status_code, r.json(), None
+            if response.status_code == 200:
+                return response.status_code, response.json(), None
 
-            return r.status_code, None, r.text[:200]
+            return response.status_code, None, response.text[:200]
 
-        except requests.RequestException as e:
+        except requests.RequestException as error:
             if attempt == max_retries:
-                return 0, None, str(e)
+                return 0, None, str(error)
             time.sleep(min(2 ** attempt, 10) + random.random())
 
-    return 0, None, "Unknown error"
+    return 0, None, "Error desconocido"

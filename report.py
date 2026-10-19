@@ -1,6 +1,10 @@
+# report.py
+# Construye el informe final (JSON) y lo imprime por consola con colores.
+# solo da formato a lo que ya viene calculado de scoring.py.
+
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 from colorama import init
@@ -9,6 +13,7 @@ init(autoreset=True, convert=True)
 
 
 def _c(text: str, color: str, enabled: bool) -> str:
+    # Aplica color ANSI si está indicado; si no, devuelve el texto tal cual.
     if not enabled:
         return text
     colors = {
@@ -31,7 +36,7 @@ def build_report(
     factors: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     return {
-        "timestamp_utc": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
         "ioc": ioc,
         "ioc_type": ioc_type,
         "sources": results,
@@ -47,6 +52,7 @@ def print_human(report: Dict[str, Any], color: bool = True) -> None:
     risk = report["risk"]
     verdict = risk["verdict"]
 
+    # Color según severidad.
     if verdict == "LOW":
         vtxt = _c(verdict, "green", color)
     elif verdict == "MEDIUM":
@@ -56,49 +62,47 @@ def print_human(report: Dict[str, Any], color: bool = True) -> None:
     else:
         vtxt = _c(verdict, "red", color)
 
-    print("\n--- SOC QUICKTRIAGE REPORT ---")
-    print(f"Time (UTC): {report['timestamp_utc']}")
-    print(f"IOC       : {report['ioc']}")
-    print(f"Type      : {report['ioc_type']}")
-    print("\nSources:")
+    print("\n--- SOC QuickTriage ---")
+    print(f"Fecha: {report['timestamp_utc']}")
+    print(f"IOC       : {report['ioc']} ({report['ioc_type']})")
+    print("\nFuentes:")
 
     sources = report.get("sources", {})
     if not sources:
-        print(" - (no data)")
+        print(" - (sin datos)")
     else:
-        for name, data in sources.items():
-            if not isinstance(data, dict):
-                print(f" - {name}: {data}")
+        for source_name, source_data in sources.items():
+            if not isinstance(source_data, dict):
+                print(f" - {source_name}: {source_data}")
                 continue
-            if "error" in data:
-                print(f" - {name}: ERROR - {data.get('error')}")
+            if "error" in source_data:
+                print(f" - {source_name}: ERROR - {source_data.get('error')}")
                 continue
 
-            # Pretty per source
-            if name == "virustotal":
-                mal = data.get("malicious", 0)
-                susp = data.get("suspicious", 0)
-                print(f" - VirusTotal : malicious={mal} suspicious={susp}")
-            elif name == "abuseipdb":
-                conf = data.get("abuseConfidenceScore", 0)
-                reps = data.get("totalReports", 0)
-                cc = data.get("countryCode", "")
-                print(f" - AbuseIPDB  : confidence={conf} reports={reps} country={cc}")
-            elif name == "otx":
-                pulses = data.get("pulse_count", 0)
-                tags = ", ".join(data.get("tags", [])[:8])
-                print(f" - OTX        : pulses={pulses} tags=[{tags}]")
+            # Cada fuente tiene su formato, así que van una a una.
+            if source_name == "virustotal":
+                malicious = source_data.get("malicious", 0)
+                suspicious = source_data.get("suspicious", 0)
+                print(f" - VirusTotal: {malicious} maliciosos / {suspicious} sospechosos")
+            elif source_name == "abuseipdb":
+                confidence = source_data.get("abuseConfidenceScore", 0)
+                reports = source_data.get("totalReports", 0)
+                country = source_data.get("countryCode", "")
+                print(f" - AbuseIPDB  : confianza {confidence}, {reports} reportes, país {country}")
+            elif source_name == "otx":
+                pulses = source_data.get("pulse_count", 0)
+                tags = ", ".join(source_data.get("tags", [])[:8])
+                print(f" - OTX: {pulses} pulses, etiquetas: {tags}")
             else:
-                print(f" - {name}: {data}")
+                print(f" - {source_name}: {source_data}")
 
-    print("\nRisk:")
-    print(f" - Score   : {risk['score']}/100")
-    print(f" - Verdict : {vtxt}")
+    print(f"\nScore   : {risk['score']}/100")
+    print(f"\nVeredicto : {vtxt}")
 
     factors = risk.get("factors", [])
     if factors:
-        print(" - Factors :")
-        for f in factors:
-            print(f"    - {f}")
+        print("Factores:")
+        for factor in factors:
+            print(f"    - {factor}")
 
     print("-----------------------------\n")

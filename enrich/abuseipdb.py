@@ -1,10 +1,14 @@
+# abuseipdb.py
+# Consulta a AbuseIPDB. Solo se utiliza con IPs, por lo que para dominios o hashes
+# no se realiza la consulta.
+
 import os
 from http_client import get_json
 
 def check_abuseipdb(ip: str) -> dict:
     api_key = os.getenv("ABUSE_API_KEY")
     if not api_key:
-        return {"error": "ABUSE_API_KEY not set"}
+        return {"error": "ABUSE_API_KEY no configurada"}
 
     url = "https://api.abuseipdb.com/api/v2/check"
     headers = {"Key": api_key, "Accept": "application/json"}

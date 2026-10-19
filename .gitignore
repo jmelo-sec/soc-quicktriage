@@ -5,3 +5,8 @@ __pycache__/
 .DS_Store
 .vscode/
 .cache/
+prueba_track1.json
+batch_report.json
+iocs.txt
+tfg/track2/thursday.csv
+tfg/track2/thursday_filtered.csv

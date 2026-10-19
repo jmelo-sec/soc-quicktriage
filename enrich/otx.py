@@ -1,3 +1,7 @@
+# otx.py
+# Consulta a OTX (AlienVault). Se obtiene el número de pulses y las tags
+# de los primeros 10 resultados. Se limita a 20 tags únicas.
+
 import os
 from http_client import get_json
 
@@ -6,7 +10,7 @@ BASE_URL = "https://otx.alienvault.com/api/v1/indicators"
 def check_otx(ioc: str, ioc_type: str) -> dict:
     api_key = os.getenv("OTX_API_KEY")
     if not api_key:
-        return {"error": "OTX_API_KEY not set"}
+        return {"error": "OTX_API_KEY no configurada"}
 
     headers = {"X-OTX-API-KEY": api_key}
 

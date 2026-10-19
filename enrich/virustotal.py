@@ -1,3 +1,8 @@
+# virustotal.py
+# Consulta a VirusTotal según el tipo de IOC (IP, dominio o hash). Para los hashes que no 
+# aparecen en la consulta directa se hace una búsqueda alternativa mediante /search. 
+# Devuelve un diccionario con la información relevante o un error si no se pudo obtener la información.
+
 import os
 from http_client import get_json
 
@@ -7,7 +12,7 @@ BASE_URL = "https://www.virustotal.com/api/v3"
 def check_virustotal(ioc: str, ioc_type: str) -> dict:
     api_key = os.getenv("VT_API_KEY")
     if not api_key:
-        return {"source": "virustotal", "error": "VT_API_KEY not set"}
+        return {"source": "virustotal", "error": "VT_API_KEY no configurada"}
 
     headers = {"x-apikey": api_key}
 
@@ -20,7 +25,7 @@ def check_virustotal(ioc: str, ioc_type: str) -> dict:
 
     status, data, err = get_json(url, headers=headers, max_retries=4)
 
-    # ---- Fallback para hash usando search ----
+    # Fallback para hash usando search
     if (status == 404 or not data) and ioc_type == "hash":
         search_url = f"{BASE_URL}/search?query={ioc}"
         status2, data2, err2 = get_json(search_url, headers=headers, max_retries=2)
@@ -32,7 +37,7 @@ def check_virustotal(ioc: str, ioc_type: str) -> dict:
                 status = 200
                 err = None
             else:
-                status, data, err = 404, None, "Hash not found via VT search"
+                status, data, err = 404, None, "Hash no encontrado mediante búsqueda en VirusTotal"
         else:
             status, data, err = status2, data2, err2
 
