@@ -1,0 +1,11 @@
+ioc;ioc_type;label;family_or_source;first_seen
+f99d46f7de1f72a0839434eba14cf6c35a8191b2157952bd863c75457122851f;hash;malicious;Mirai (MalwareBazaar, reutilizado del Track 1);21/09/2026 15:17
+757a51e4be8276d00d11abe70ef12e4b9a822a6de88b61bca77c0c24bc510833;hash;malicious;Mirai (MalwareBazaar, reutilizado del Track 1);21/09/2026 14:37
+9fd297bcff5d46de4015289e27f7fdb0fcad5fdcbf81848581791320ba4a4d17;hash;malicious;Mirai (MalwareBazaar, reutilizado del Track 1);21/09/2026 14:29
+04bf2417f7325812c50c78a11238aee8a4f8c3315c59f4a1e2ce637b95352839;hash;malicious;Mirai (MalwareBazaar, reutilizado del Track 1);21/09/2026 14:17
+ef3ff95f5bbd58048d646da446f9ff8d993bc13e91f81e8022fe94b0eac1c6d8;hash;malicious;Mirai (MalwareBazaar, reutilizado del Track 1);21/09/2026 14:15
+94.154.43.12;ip;malicious;Mirai C2 (ThreatFox);2026-09-22 05:29:45 UTC
+222.141.122.254;ip;malicious;Mirai C2 (ThreatFox);2026-09-22 04:58:47 UTC
+81.227.54.149;ip;malicious;Mirai C2 (ThreatFox);2026-09-22 04:58:46 UTC
+113.228.85.214;ip;malicious;Mirai C2 (ThreatFox);2026-09-22 04:58:46 UTC
+113.17.176.184;ip;malicious;Mirai C2 (ThreatFox);2026-09-22 04:58:42 UTC

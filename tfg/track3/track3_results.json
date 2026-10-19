@@ -1,0 +1,482 @@
+[
+  {
+    "timestamp_utc": "2026-09-22T09:02:07Z",
+    "ioc": "f99d46f7de1f72a0839434eba14cf6c35a8191b2157952bd863c75457122851f",
+    "ioc_type": "hash",
+    "sources": {
+      "virustotal": {
+        "source": "virustotal",
+        "malicious": 40,
+        "suspicious": 0,
+        "raw_stats": {
+          "malicious": 40,
+          "suspicious": 0,
+          "undetected": 22,
+          "harmless": 0,
+          "timeout": 0,
+          "confirmed-timeout": 0,
+          "failure": 1,
+          "type-unsupported": 12
+        }
+      },
+      "otx": {
+        "source": "otx",
+        "pulse_count": 0,
+        "tags": []
+      }
+    },
+    "risk": {
+      "score": 100.0,
+      "verdict": "CRITICAL",
+      "factors": [
+        "VirusTotal: 40 Motores marcan Malicioso"
+      ]
+    }
+  },
+  {
+    "timestamp_utc": "2026-09-22T09:02:07Z",
+    "ioc": "757a51e4be8276d00d11abe70ef12e4b9a822a6de88b61bca77c0c24bc510833",
+    "ioc_type": "hash",
+    "sources": {
+      "virustotal": {
+        "source": "virustotal",
+        "malicious": 4,
+        "suspicious": 0,
+        "raw_stats": {
+          "malicious": 4,
+          "suspicious": 0,
+          "undetected": 59,
+          "harmless": 0,
+          "timeout": 0,
+          "confirmed-timeout": 0,
+          "failure": 0,
+          "type-unsupported": 12
+        }
+      },
+      "otx": {
+        "source": "otx",
+        "pulse_count": 0,
+        "tags": []
+      }
+    },
+    "risk": {
+      "score": 24.0,
+      "verdict": "MEDIUM",
+      "factors": [
+        "VirusTotal: 4 Motores marcan Malicioso"
+      ]
+    }
+  },
+  {
+    "timestamp_utc": "2026-09-22T09:02:07Z",
+    "ioc": "9fd297bcff5d46de4015289e27f7fdb0fcad5fdcbf81848581791320ba4a4d17",
+    "ioc_type": "hash",
+    "sources": {
+      "virustotal": {
+        "source": "virustotal",
+        "malicious": 17,
+        "suspicious": 0,
+        "raw_stats": {
+          "malicious": 17,
+          "suspicious": 0,
+          "undetected": 46,
+          "harmless": 0,
+          "timeout": 0,
+          "confirmed-timeout": 0,
+          "failure": 1,
+          "type-unsupported": 11
+        }
+      },
+      "otx": {
+        "source": "otx",
+        "pulse_count": 0,
+        "tags": []
+      }
+    },
+    "risk": {
+      "score": 100.0,
+      "verdict": "CRITICAL",
+      "factors": [
+        "VirusTotal: 17 Motores marcan Malicioso"
+      ]
+    }
+  },
+  {
+    "timestamp_utc": "2026-09-22T09:02:07Z",
+    "ioc": "04bf2417f7325812c50c78a11238aee8a4f8c3315c59f4a1e2ce637b95352839",
+    "ioc_type": "hash",
+    "sources": {
+      "virustotal": {
+        "source": "virustotal",
+        "malicious": 37,
+        "suspicious": 0,
+        "raw_stats": {
+          "malicious": 37,
+          "suspicious": 0,
+          "undetected": 27,
+          "harmless": 0,
+          "timeout": 0,
+          "confirmed-timeout": 0,
+          "failure": 0,
+          "type-unsupported": 11
+        }
+      },
+      "otx": {
+        "source": "otx",
+        "pulse_count": 0,
+        "tags": []
+      }
+    },
+    "risk": {
+      "score": 100.0,
+      "verdict": "CRITICAL",
+      "factors": [
+        "VirusTotal: 37 Motores marcan Malicioso"
+      ]
+    }
+  },
+  {
+    "timestamp_utc": "2026-09-22T09:02:07Z",
+    "ioc": "ef3ff95f5bbd58048d646da446f9ff8d993bc13e91f81e8022fe94b0eac1c6d8",
+    "ioc_type": "hash",
+    "sources": {
+      "virustotal": {
+        "source": "virustotal",
+        "malicious": 4,
+        "suspicious": 0,
+        "raw_stats": {
+          "malicious": 4,
+          "suspicious": 0,
+          "undetected": 59,
+          "harmless": 0,
+          "timeout": 0,
+          "confirmed-timeout": 0,
+          "failure": 0,
+          "type-unsupported": 12
+        }
+      },
+      "otx": {
+        "source": "otx",
+        "pulse_count": 0,
+        "tags": []
+      }
+    },
+    "risk": {
+      "score": 24.0,
+      "verdict": "MEDIUM",
+      "factors": [
+        "VirusTotal: 4 Motores marcan Malicioso"
+      ]
+    }
+  },
+  {
+    "timestamp_utc": "2026-09-22T09:02:10Z",
+    "ioc": "94.154.43.12",
+    "ioc_type": "ip",
+    "sources": {
+      "virustotal": {
+        "source": "virustotal",
+        "malicious": 21,
+        "suspicious": 3,
+        "raw_stats": {
+          "malicious": 21,
+          "suspicious": 3,
+          "undetected": 26,
+          "harmless": 39,
+          "timeout": 0
+        }
+      },
+      "abuseipdb": {
+        "source": "abuseipdb",
+        "abuseConfidenceScore": 100,
+        "totalReports": 4197,
+        "countryCode": "NL",
+        "isp": "Storm Industries LLC"
+      },
+      "otx": {
+        "source": "otx",
+        "pulse_count": 50,
+        "tags": [
+          "tpot",
+          "honeypot",
+          "sensor-tagged",
+          "cowrie",
+          "suricata",
+          "dionaea",
+          "honeytrap",
+          "p0f",
+          "fatt",
+          "mailoney",
+          "tanner",
+          "sentrypeer",
+          "digital ocean",
+          "portscan",
+          "scanners",
+          "mainunaware",
+          "charrederror",
+          "a1fee8esys",
+          "scada",
+          "ot_security"
+        ]
+      }
+    },
+    "risk": {
+      "score": 100.0,
+      "verdict": "CRITICAL",
+      "factors": [
+        "VirusTotal: 21 Motores marcan Malicioso",
+        "VirusTotal: 3 Motores marcan Sospechoso",
+        "AbuseIPDB: confianza 100%",
+        "OTX: 50 pulses detectados"
+      ]
+    }
+  },
+  {
+    "timestamp_utc": "2026-09-22T09:02:12Z",
+    "ioc": "222.141.122.254",
+    "ioc_type": "ip",
+    "sources": {
+      "virustotal": {
+        "source": "virustotal",
+        "malicious": 5,
+        "suspicious": 1,
+        "raw_stats": {
+          "malicious": 5,
+          "suspicious": 1,
+          "undetected": 33,
+          "harmless": 50,
+          "timeout": 0
+        }
+      },
+      "abuseipdb": {
+        "source": "abuseipdb",
+        "abuseConfidenceScore": 2,
+        "totalReports": 1,
+        "countryCode": "CN",
+        "isp": "China Unicom Henan province network"
+      },
+      "otx": {
+        "source": "otx",
+        "pulse_count": 1,
+        "tags": [
+          "d52f85",
+          "dropped-by-amadey",
+          "Mozi",
+          "32-bit",
+          "elf",
+          "mips",
+          "mirai",
+          "54e64e",
+          "arm",
+          "ua-wget",
+          "176-65-134-121-8080",
+          "45-59-126-83-8081",
+          "exe",
+          "217-60-195-187",
+          "sh",
+          "172-86-72-97",
+          "64-bit",
+          "x86-64",
+          "c2-monitor-auto",
+          "RemusStealer"
+        ]
+      }
+    },
+    "risk": {
+      "score": 39.4,
+      "verdict": "MEDIUM",
+      "factors": [
+        "VirusTotal: 5 Motores marcan Malicioso",
+        "VirusTotal: 1 Motores marcan Sospechoso",
+        "AbuseIPDB: confianza 2%",
+        "OTX: 1 pulses detectados"
+      ]
+    }
+  },
+  {
+    "timestamp_utc": "2026-09-22T09:02:18Z",
+    "ioc": "81.227.54.149",
+    "ioc_type": "ip",
+    "sources": {
+      "virustotal": {
+        "source": "virustotal",
+        "malicious": 14,
+        "suspicious": 2,
+        "raw_stats": {
+          "malicious": 14,
+          "suspicious": 2,
+          "undetected": 29,
+          "harmless": 44,
+          "timeout": 0
+        }
+      },
+      "abuseipdb": {
+        "source": "abuseipdb",
+        "abuseConfidenceScore": 76,
+        "totalReports": 23,
+        "countryCode": "SE",
+        "isp": "Telia Network Services"
+      },
+      "otx": {
+        "source": "otx",
+        "pulse_count": 4,
+        "tags": [
+          "tcp",
+          "telnet",
+          "honeypot",
+          "Malicious IP",
+          "botnet",
+          "blacklist",
+          "scan",
+          "32-bit",
+          "arm",
+          "elf",
+          "Mozi",
+          "mips",
+          "d52f85",
+          "dropped-by-amadey",
+          "mirai",
+          "stego",
+          "infostealer",
+          "malware",
+          "176-65-139-137",
+          "ua-wget"
+        ]
+      }
+    },
+    "risk": {
+      "score": 100.0,
+      "verdict": "CRITICAL",
+      "factors": [
+        "VirusTotal: 14 Motores marcan Malicioso",
+        "VirusTotal: 2 Motores marcan Sospechoso",
+        "AbuseIPDB: confianza 76%",
+        "OTX: 4 pulses detectados"
+      ]
+    }
+  },
+  {
+    "timestamp_utc": "2026-09-22T09:02:20Z",
+    "ioc": "113.228.85.214",
+    "ioc_type": "ip",
+    "sources": {
+      "virustotal": {
+        "source": "virustotal",
+        "malicious": 8,
+        "suspicious": 3,
+        "raw_stats": {
+          "malicious": 8,
+          "suspicious": 3,
+          "undetected": 31,
+          "harmless": 47,
+          "timeout": 0
+        }
+      },
+      "abuseipdb": {
+        "source": "abuseipdb",
+        "abuseConfidenceScore": 35,
+        "totalReports": 5,
+        "countryCode": "CN",
+        "isp": "China Unicom Liaoning province network"
+      },
+      "otx": {
+        "source": "otx",
+        "pulse_count": 3,
+        "tags": [
+          "malware",
+          "honeypot",
+          "payload-delivery",
+          "tpot",
+          "32-bit",
+          "elf",
+          "mips",
+          "Mozi",
+          "arm",
+          "mirai",
+          "ua-wget",
+          "d52f85",
+          "dropped-by-amadey",
+          "c2-monitor-auto",
+          "jar",
+          "java",
+          "SilentNet",
+          "SilverFox",
+          "ValleyRAT",
+          "quickfix"
+        ]
+      }
+    },
+    "risk": {
+      "score": 96.5,
+      "verdict": "CRITICAL",
+      "factors": [
+        "VirusTotal: 8 Motores marcan Malicioso",
+        "VirusTotal: 3 Motores marcan Sospechoso",
+        "AbuseIPDB: confianza 35%",
+        "OTX: 3 pulses detectados"
+      ]
+    }
+  },
+  {
+    "timestamp_utc": "2026-09-22T09:02:35Z",
+    "ioc": "113.17.176.184",
+    "ioc_type": "ip",
+    "sources": {
+      "virustotal": {
+        "source": "virustotal",
+        "malicious": 5,
+        "suspicious": 4,
+        "raw_stats": {
+          "malicious": 5,
+          "suspicious": 4,
+          "undetected": 31,
+          "harmless": 49,
+          "timeout": 0
+        }
+      },
+      "abuseipdb": {
+        "source": "abuseipdb",
+        "abuseConfidenceScore": 19,
+        "totalReports": 3,
+        "countryCode": "CN",
+        "isp": "CHINANET GUANGXI PROVINCE NETWORK"
+      },
+      "otx": {
+        "source": "otx",
+        "pulse_count": 2,
+        "tags": [
+          "32-bit",
+          "arm",
+          "elf",
+          "mirai",
+          "Mozi",
+          "mips",
+          "d52f85",
+          "dropped-by-amadey",
+          "android",
+          "apk",
+          "Amos",
+          "AppleScript",
+          "ClickFix",
+          "macOS",
+          "MacSync",
+          "stealer",
+          "token-b54cc90c",
+          "UnstoppableDomains",
+          "zsh",
+          "ascii"
+        ]
+      }
+    },
+    "risk": {
+      "score": 65.3,
+      "verdict": "HIGH",
+      "factors": [
+        "VirusTotal: 5 Motores marcan Malicioso",
+        "VirusTotal: 4 Motores marcan Sospechoso",
+        "AbuseIPDB: confianza 19%",
+        "OTX: 2 pulses detectados"
+      ]
+    }
+  }
+]
