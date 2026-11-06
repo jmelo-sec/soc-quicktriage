@@ -1,0 +1,5 @@
+﻿scenario;model;bal_acc_mean;bal_acc_std;recall_mean;recall_std;f1_mal_mean;f1_mal_std
+Todas;Regresión Logística;0.986;0.057;0.972;0.113;0.981;0.076
+Todas;Random Forest;0.986;0.057;0.972;0.113;0.981;0.076
+Sin VT;Regresión Logística;0.92;0.054;1.0;0.0;0.909;0.058
+Sin VT;Random Forest;0.906;0.055;1.0;0.0;0.895;0.057
