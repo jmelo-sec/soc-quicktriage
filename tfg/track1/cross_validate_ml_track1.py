@@ -1,12 +1,16 @@
 # cross_validate_ml_track1.py
 # Validación cruzada repetida (5x10) para el Track 1.
-# Se repite porque en el script original (train_evaluate_ml_track1.py) daba 1.000
-# en todo, y hay sospechas de que es porque vt_malicious separa las clases casi sola.
+# Se repite porque en el script original (train_evaluate_ml_track1.py) Random Forest daba 1.000, 
+# y hay sospechas de que es porque vt_malicious separa las clases casi sola.
 # Aquí se repite el proceso con otras particiones, quitando las variables de VirusTotal
 # para ver si AbuseIPDB y OTX siguen sirviendo de algo.
 #
 # Se reutiliza la carga de datos del script anterior para no tener código duplicado.
-# Salida: track1_cv_repetida.csv
+# Salida: track1_cross_validation.csv
+#
+# Como en train_evaluate_ml_track1.py, la Regresión Logística va dentro de un Pipeline 
+# con StandardScaler para que las variables estén a la misma escala. 
+# El Random Forest no lo necesita, ya que se basa en árboles.
 
 import csv
 import json
@@ -15,6 +19,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import RepeatedStratifiedKFold, cross_validate
 
 from train_evaluate_ml_track1 import (
@@ -62,7 +68,9 @@ def main():
     }
 
     models = {
-        "Regresión Logística": LogisticRegression(max_iter=1000, class_weight="balanced"),
+        "Regresión Logística": make_pipeline(
+            StandardScaler(), LogisticRegression(max_iter=1000, class_weight="balanced")
+        ),
         "Random Forest": RandomForestClassifier(
             n_estimators=200, random_state=RANDOM_STATE, class_weight="balanced"
         ),

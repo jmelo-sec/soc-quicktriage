@@ -5,10 +5,15 @@
 # heurística, recalculada aquí con la misma regla que evaluate_track1.py.
 #
 # Features: vt_malicious, vt_suspicious, abuse_confidence, abuse_total_reports, 
-# otx_pulse_count, otx_tag_count (tabla 5, Apartado 2.6.1)
+# otx_pulse_count, otx_tag_count (Tabla 9, Apartado 2.7.1)
+#
+# Para la Regresión Logística estandarizo las variables (usando StandardScaler dentro 
+# de un Pipeline y ajustándolo solo con el train de cada partición) para que los 
+# coeficientes se puedan comparar entre sí.
 #
 # Atención con el tamaño de muestra: con 58 IOCs etiquetados, la validación cruzada 5-fold
-# deja folds de menos de 10 muestras, lo que limita la fiabilidad estadística.
+# deja folds de unas 12 muestras, lo que limita bastante la fiabilidad estadística. 
+# Hay que tenerlo en cuenta al interpretar los resultados.
 # Por eso utilizo un split 70/30, en lugar de 80/20, para mantener un conjunto de test 
 # más representativo dado el pequeño tamaño de muestra. La limitación se reconoce 
 # en el Apartado 3.5; la comparación sigue siendo válida como primera pasada.
@@ -20,6 +25,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import StratifiedKFold, cross_val_score, train_test_split
 from sklearn.metrics import balanced_accuracy_score, f1_score, ConfusionMatrixDisplay, confusion_matrix
 
@@ -114,7 +121,9 @@ def main():
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
 
     models = {
-        "Regresión Logística": LogisticRegression(max_iter=1000, class_weight="balanced"),
+        "Regresión Logística": make_pipeline(
+            StandardScaler(), LogisticRegression(max_iter=1000, class_weight="balanced")
+        ),
         "Random Forest": RandomForestClassifier(
             n_estimators=200, random_state=RANDOM_STATE, class_weight="balanced"
         ),
@@ -177,20 +186,23 @@ def main():
         print(cm)
 
         # En RF (Random Forest) miramos importancias; en LR (Logistic Regression), coeficientes.
-        # Son las 2 formas de ver qué pesa más en cada modelo.
-        if hasattr(model, "feature_importances_"):
+        # Saco el modelo real del Pipeline (el último paso) para poder mirar sus atributos.
+        # Si no está en un Pipeline, uso el modelo tal cual.
+        estimator = model[-1] if hasattr(model, "steps") else model
+
+        if hasattr(estimator, "feature_importances_"):
             print("Importancia de Características:")
 
             for feature_name, importance in sorted(
-                zip(FEATURE_NAMES, model.feature_importances_), key=lambda item: -item[1]
+                zip(FEATURE_NAMES, estimator.feature_importances_), key=lambda item: -item[1]
             ):
                 print(f"  {feature_name:<22} {importance:.3f}")
 
-        elif hasattr(model, "coef_"):
+        elif hasattr(estimator, "coef_"):
             print("Coeficientes:")
 
             for feature_name, coef in sorted(
-                zip(FEATURE_NAMES, model.coef_[0]), key=lambda item: -abs(item[1])
+                zip(FEATURE_NAMES, estimator.coef_[0]), key=lambda item: -abs(item[1])
             ):
                 
                 print(f"  {feature_name:<22} {coef:+.3f}")
