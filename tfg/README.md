@@ -34,3 +34,5 @@ Consulte las condiciones de uso publicadas por cada proveedor antes de redistrib
 ## Reproducibilidad
 
 El Track 1 se construye con `build_track1.py`, que consulta MalwareBazaar en el momento de la ejecución. Una ejecución posterior puede producir muestras distintas. Por ello, se conservan la respuesta sin procesar y los resultados de la ejecución documentada. Además, las puntuaciones dependen del estado de VirusTotal en el momento de la consulta y pueden variar entre ejecuciones. La validación cruzada repetida usa una semilla fija (random_state=42), por lo que sus resultados se reproducen sobre el mismo dataset.
+
+Las dependencias utilizadas están fijadas en `tfg/requirements.txt` (se instalan con `pip install -r tfg/requirements.txt`). Hay que tener en cuenta que, si se usan otras versiones de scikit-learn, la importancia de características de Random Forest podría variar ligeramente. Además, para ejecutar los scripts `build_track1.py` y `build_track3.py`, la Auth-Key de abuse.ch se lee desde la variable ABUSECH_AUTH_KEY del fichero `.env` (puedes guiarte por el archivo `.env.example`).
