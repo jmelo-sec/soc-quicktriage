@@ -20,10 +20,12 @@
 #   4. Combinar los hashes de esa familia (hasta MAX_HASHES) con el mismo número de IPs 
 #      de C2, para un total de 10 IOCs.
 #
-# Fuente: ThreatFox (abuse.ch). API pública, requiere Auth-Key gratuita (auth.abuse.ch). 
+# Fuente: ThreatFox (abuse.ch). API pública, requiere Auth-Key gratuita (auth.abuse.ch) (se lee desde ABUSECH_AUTH_KEY en el fichero .env). 
 # Documentación: threatfox.abuse.ch/api/
 
 import sys
+import os
+from dotenv import load_dotenv
 import csv
 import requests
 
@@ -119,11 +121,14 @@ def select_family(auth_key, ranked_families):
     return None, None, None, None
 
 def main():
-    if len(sys.argv) != 2:
-        print("Uso: python build_track3.py <TU_AUTH_KEY_DE_THREATFOX>")
+    # Cargo la Auth-Key desde el .env (requisito RS1) para no tener que pasarla por consola,
+    # y compruebo que exista para evitar que el script falle más adelante.
+    load_dotenv()
+    auth_key = os.getenv("ABUSECH_AUTH_KEY")
+    
+    if not auth_key:
+        print("Error: falta ABUSECH_AUTH_KEY en el fichero .env (Auth-Key de auth.abuse.ch).")
         sys.exit(1)
-
-    auth_key = sys.argv[1]
 
     print(f"Leyendo familias maliciosas desde {TRACK1_DATASET_PATH}...")
     ranked_families = load_track1_malicious_by_family(TRACK1_DATASET_PATH)

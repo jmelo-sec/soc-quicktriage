@@ -5,7 +5,7 @@
 # Consulta los hashes directamente a la API de MalwareBazaar (query
 # "get_recent"). La ejecución del script deja constancia de la consulta realizada.
 #
-# La API requiere una Auth-Key gratuita, registrada en auth.abuse.ch.
+# La API requiere una Auth-Key gratuita, registrada en auth.abuse.ch (se lee desde ABUSECH_AUTH_KEY en el fichero .env).
 # Documentación: bazaar.abuse.ch/api/
 #
 # Solo aceptamos muestras con "signature" (familia identificada), necesaria
@@ -16,6 +16,8 @@
 # para el módulo de enriquecimiento. Ambos ficheros se generan a la vez para evitar que se desincronicen.
 
 import sys
+import os
+from dotenv import load_dotenv
 import csv
 import json
 import requests
@@ -65,11 +67,14 @@ def select_diverse_samples(raw_samples, target, max_per_family):
     return selected
 
 def main():
-    if len(sys.argv) != 2:
-        print("Uso: python build_track1.py <TU_AUTH_KEY_DE_MALWAREBAZAAR>")
+    # Cargo la Auth-Key desde el .env (requisito RS1) para no tener que pasarla por consola,
+    # y compruebo que exista para evitar que el script falle más adelante.
+    load_dotenv()
+    auth_key = os.getenv("ABUSECH_AUTH_KEY")
+    
+    if not auth_key:
+        print("Error: falta ABUSECH_AUTH_KEY en el fichero .env (Auth-Key de auth.abuse.ch).")
         sys.exit(1)
-
-    auth_key = sys.argv[1]
 
     # 1) Hashes maliciosos. Extraídos automáticamente vía la API de MalwareBazaar
     #    (query "get_recent"), filtrando solo muestras con "signature" para tener
